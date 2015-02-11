@@ -10,6 +10,15 @@ use stp\dpd\BaseType;
  */
 abstract class BaseMessage extends BaseType
 {
+    /**
+     * Запрос нескольких объектов
+     *
+     * @return bool
+     */
+    public function isMulti()
+    {
+        return false;
+    }
 
     /**
      * @return string

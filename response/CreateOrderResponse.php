@@ -16,11 +16,10 @@ class CreateOrderResponse extends BaseResponse
 
     static $statuses = [self::STATUS_OK, self::STATUS_DUPLICATE, self::STATUS_PENDING];
 
-
     public function __construct($response)
     {
         parent::__construct($response);
-        $this->status = in_array($response->status, self::$statuses) ? $response->status : self::STATUS_UNKNOWN;
+        $this->status = in_array($this->status, self::$statuses) ? $this->status : self::STATUS_UNKNOWN;
     }
 
 }

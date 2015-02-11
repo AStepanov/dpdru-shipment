@@ -28,7 +28,7 @@ abstract class BaseType
             }
             if ($value instanceof BaseType) {
                 $ref = $value->asArray();
-            } elseif (is_array($value) && $value[0] instanceof BaseType) {
+            } elseif (is_array($value) && !empty($value[0]) && $value[0] instanceof BaseType) {
                 $ref = [];
                 foreach($value as $subtype) {
                     $ref[] = $subtype->asArray();

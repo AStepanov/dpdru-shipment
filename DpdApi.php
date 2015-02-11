@@ -23,11 +23,17 @@ class DpdApi
     const _HOST = 'ws.dpd.ru/services/';
     const _HOST_TEST = 'wstest.dpd.ru/services/';
 
-    const METHOD_CREATE_ORDER = 'createOrder';
     const SERVICE_ORDER = 'order2';
+    const METHOD_CREATE_ORDER = 'createOrder';
+    const METHOD_GET_REGISTER_FILE = 'getRegisterFile';
+
+    const SERVICE_TRACING = 'tracing';
+    const METHOD_GET_STATE_CLIENT = 'getStatesByClientOrder';
 
     static $services = [
         self::METHOD_CREATE_ORDER => self::SERVICE_ORDER,
+        self::METHOD_GET_REGISTER_FILE => self::SERVICE_ORDER,
+        self::METHOD_GET_STATE_CLIENT => self::SERVICE_TRACING,
     ];
 
     /**
@@ -110,8 +116,7 @@ class DpdApi
     /**
      * @param string $methodName
      * @param BaseMessage $message
-     * @return BaseResponse
-     * @todo: support array of BaseMessage
+     * @return BaseResponse|BaseResponse[]
      */
     public function request($methodName, BaseMessage $message)
     {
@@ -128,8 +133,20 @@ class DpdApi
             throw new \RuntimeException(sprintf('Error on call service %s', $methodName));
         }
 
+        return $this->buildResponse($message, $responseData);
+    }
+
+    protected function buildResponse(BaseMessage $message, $responseData)
+    {
         $responseClassName = $message->responseType();
-        $response = new $responseClassName($responseData);
+        if ($message->isMulti()) {
+            $response = [];
+            foreach($responseData->return as $element) {
+                $response[] = new $responseClassName((object)['return' => $element]);
+            }
+        } else {
+            $response = new $responseClassName($responseData);
+        }
 
         return $response;
     }
