@@ -3,6 +3,7 @@
 namespace stp\dpd\type;
 
 use stp\dpd\BaseType;
+use stp\dpd\type\ExtraService;
 
 /**
  * Описание заказа заказа
@@ -19,13 +20,12 @@ use stp\dpd\BaseType;
  * @property string|null $deliveryTimePeriod
  * @property string|null $extraParam
  * @property string|null $dataInt
- * @property string|null $extraService
+ * @property ExtraService[]|null $extraService
  * @property string $receiverAddress
  * @property Parcel[]|null $parcel
  * @property array[]|null $unitLoad
  */
 class Order extends BaseType
 {
-
 
 }
