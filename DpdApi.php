@@ -29,11 +29,15 @@ class DpdApi
 
     const SERVICE_TRACING = 'tracing';
     const METHOD_GET_STATE_CLIENT = 'getStatesByClientOrder';
+    
+    const SERVICE_GEOGRAPHY = 'geography';
+    const METHOD_GET_CITIES_CASH_PAY = 'getCitiesCashPay';
 
     static $services = [
         self::METHOD_CREATE_ORDER => self::SERVICE_ORDER,
         self::METHOD_GET_REGISTER_FILE => self::SERVICE_ORDER,
         self::METHOD_GET_STATE_CLIENT => self::SERVICE_TRACING,
+        self::METHOD_GET_CITIES_CASH_PAY => self::SERVICE_GEOGRAPHY,
     ];
 
     /**
