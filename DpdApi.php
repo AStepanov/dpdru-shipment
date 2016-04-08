@@ -129,8 +129,9 @@ class DpdApi
         }
         $this->serviceConnect(self::$services[$methodName]);
         $this->messageAuth($message);
-
-        $data = [$message->getWrapperName() => $message->asArray()];
+        
+        $msgData = unserialize(serialize($message->asArray())); //hotfix for PHP7 SOAPClient (array-reference bug)
+        $data = [$message->getWrapperName() => $msgData];
 
         $responseData = $this->soapClient->$methodName($data);
         if (!$responseData) {
